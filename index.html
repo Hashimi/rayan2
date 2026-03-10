@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rayan Tower</title>
+<link rel="stylesheet" href="style.css">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<!-- ✅ SIDE NAVIGATION -->
+<aside class="side-navbar" id="sideNavbar">
+  
+  <!-- Logo at Top -->
+  <div class="logo">
+    <img src="logo.png" alt="Logo">
+    <span class="logo-text lang" data-fa="رایان تاور" data-en="Rayan Tower">رایان تاور</span>
+  </div>
+
+  <!-- Navigation Links -->
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#home" class="lang" data-fa="خانه" data-en="Home">خانه</a></li>
+    <li><a href="#about" class="lang" data-fa="درباره ما" data-en="About">درباره ما</a></li>
+    <li><a href="#features" class="lang" data-fa="ویژگی‌ها" data-en="Features">ویژگی‌ها</a></li>
+    <li><a href="#gallery" class="lang" data-fa="گالری" data-en="Gallery">گالری</a></li>
+    <li><a href="#location" class="lang" data-fa="موقعیت" data-en="Location">موقعیت</a></li>
+    <li><a href="#contact" class="lang" data-fa="تماس" data-en="Contact">تماس</a></li>
+  </ul>
+
+  <!-- Language Switcher at Bottom -->
+  <div class="language-switcher">
+    <button id="fa-btn" class="lang-btn active">FA</button>
+    <button id="en-btn" class="lang-btn">EN</button>
+  </div>
+
+  <!-- ✅ Hamburger for Mobile (inside sidebar) -->
+  <button class="hamburger" id="hamburger" aria-label="Toggle navigation">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+
+</aside>
+
+<!-- ✅ Main Content Wrapper (shifts based on navbar) -->
+<main class="main-content">
+
+<header>
+  <section id="home" class="hero">
+    <video autoplay muted loop id="heroVideo">
+      <source src="rayan.mp4" type="video/mp4">
+    </video>
+    <div class="hero-overlay">
+      <img src="logo.png" class="hero-logo">
+      <h1 class="hero-title lang" data-fa="رایان تاور" data-en="Rayan Tower">رایان تاور</h1>
+      <p class="hero-subtitle lang" data-fa="زندگی لوکس در مزار شریف" data-en="Luxury Residential Living in Mazar-e-Sharif">زندگی لوکس در مزار شریف</p>
+      <a href="#contact" class="btn lang" data-fa="رزرو بازدید" data-en="Book a Visit">رزرو بازدید</a>
+    </div>
+  </section>
+</header>
+
+<section id="about" class="about-section">
+  <div class="about-container">
+    <div class="about-ribbon">
+      <span class="ribbon-text lang" data-fa="زندگی لوکس و مدرن را با ما تجربه کنید" data-en="Experience Luxury & Modern Life With Us">لوکس و مدرن</span>
+    </div>
+    <div class="about-content">
+      <div class="about-text">
+        <h2 class="lang" data-fa="درباره رایان تاور" data-en="About Rayan Tower">درباره رایان تاور</h2>
+        <p class="lang" data-fa="رایان تاور نماد یک زندگی مدرن، مصؤن و باوقار در شهر مزار شریف است؛ پروژه‌ای که با نگاه آینده‌نگر، کیفیت مهندسی‌شده و طراحی شهری معاصر ساخته می‌شود. این برج ترکیبی هماهنگ از فضاهای تجارتی ممتاز و واحدهای رهایشی لوکس است؛ جایی که آسایش، امنیت و ارزش سرمایه‌گذاری در کنار هم قرار گرفته‌اند." data-en="Ryan Tower is a symbol of modern, safe and dignified living in the city of Mazar-e Sharif; a project built with a forward-looking vision, engineered quality and contemporary urban design. This tower is a harmonious combination of premium commercial spaces and luxury residential units; where comfort, security and investment value come together.">رایان تاور .</p>
+        <div class="features">
+          <div class="feature lang" data-fa="آپارتمان‌های لوکس" data-en="Luxury Apartments">آپارتمان‌های لوکس</div>
+          <div class="feature lang" data-fa="معماری مدرن" data-en="Modern Architecture">معماری مدرن</div>
+          <div class="feature lang" data-fa="پارکینگ امن" data-en="Secure Parking">پارکینگ امن</div>
+          <div class="feature lang" data-fa="موقعیت عالی" data-en="Prime Location">موقعیت عالی</div>
+        </div>
+      </div>
+      <div class="about-image"><img src="about.jpg" alt="About"></div>
+    </div>
+  </div>
+</section>
+
+<section id="features" class="features-section">
+  <h2 class="section-title lang" data-fa="ویژگی‌ها" data-en="Features">ویژگی‌ها</h2>
+  <div class="features-grid">
+    <div class="feature-box"><div class="icon">🚗</div><h3 class="lang" data-fa="پارکنگ" data-en="Parking Area">Parking Area</h3><p class="lang" data-fa="پارکنگ وسیع برای وسایط" data-en="Large Parking For Your Vehicles"></p></div>
+    <div class="feature-box"><div class="icon">🌳</div><h3 class="lang" data-fa="فضای سبز" data-en="Green Area">Green Area</h3><p class="lang" data-fa="فضای سبز و گوارا" data-en="Enriched with Greenery"></p></div>
+    <div class="feature-box"><div class="icon">🛡️</div><h3 class="lang" data-fa="امن و مطمین" data-en="Security System">Security</h3><p class="lang" data-fa="سیستم امنیتی مطمین" data-en="Secure Environment"></p></div>
+    <div class="feature-box"><div class="icon">🔥</div><h3 class="lang" data-fa="سیستم گرمایشی" data-en="Heating System">Heating System</h3><p class="lang" data-fa="سیستم گرمایش مرکزی ترکی" data-en="Turkish central heating system"></p></div>
+    <div class="feature-box"><div class="icon">🛗</div><h3 class="lang" data-fa="آسانسور مدرن" data-en="Modern Elevator">Modern Elevator</h3><p class="lang" data-fa="سیستم آسانسور مدرن و مجهز" data-en="Modern and equipped lift system"></p></div>
+    <div class="feature-box"><div class="icon">📜</div><h3 class="lang" data-fa="قباله شرعی" data-en="Legal Documents">Legal Documents</h3><p class="lang" data-fa="قباله شرعی مستقل برای هر آپارتمان" data-en="Independent Legal Documents"></p></div>
+  </div>
+</section>
+
+<section id="gallery">
+  <h2 class="lang" data-fa="گالری پروژه" data-en="Project Gallery">گالری پروژه</h2>
+  <div class="gallery">
+    <a href="1.jpg" class="gallery-item"><img src="1.jpg" alt="Gallery 1"></a>
+    <a href="2.jpg" class="gallery-item"><img src="2.jpg" alt="Gallery 2"></a>
+    <a href="3.jpg" class="gallery-item"><img src="3.jpg" alt="Gallery 3"></a>
+    <a href="4.jpg" class="gallery-item"><img src="4.jpg" alt="Gallery 4"></a>
+    <a href="5.jpg" class="gallery-item"><img src="5.jpg" alt="Gallery 5"></a>
+    <a href="6.jpg" class="gallery-item"><img src="6.jpg" alt="Gallery 6"></a>
+    <a href="7.jpg" class="gallery-item"><img src="7.jpg" alt="Gallery 7"></a>
+    <a href="8.jpg" class="gallery-item"><img src="8.jpg" alt="Gallery 8"></a>
+  </div>
+</section>
+
+<section id="location">
+  <h2 class="lang" data-fa="موقعیت پروژه" data-en="Project Location">موقعیت پروژه</h2>
+  <iframe src="https://maps.google.com/maps?q=36.69596963049186,67.11426971379407&z=15&output=embed"></iframe>
+</section>
+
+<section id="contact">
+  <h2 class="lang" data-fa="تماس با ما" data-en="Contact Us">تماس با ما</h2>
+  <div class="contact-box">
+    <p>📍 Shadiyan Road, Zabihullah Sqr</p>
+    <p>📱 WhatsApp: 0766666902</p>
+    <p>📱 WhatsApp: 0749303410</p>
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 Rayan Tower | Luxury Living</p>
+  <p>Powered By HashimiHideout</p>
+</footer>
+
+</main> <!-- ✅ End Main Content -->
+
+<!-- Lightbox (unchanged) -->
+<div id="lightbox" class="lightbox">
+  <span class="close">&times;</span>
+  <span class="prev">&#10094;</span>
+  <img class="lightbox-img" alt="Lightbox">
+  <span class="next">&#10095;</span>
+  <div class="caption"></div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
