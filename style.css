@@ -272,7 +272,12 @@ html[dir="rtl"] .main-content { margin-right: 200px; }
   html[dir="rtl"] .hamburger { left: 12px; }
 }
 
+/* Debug: Show element boundaries */
+.side-navbar { outline: 2px dashed #0f0 !important; }
+.hamburger { outline: 2px dashed #f00 !important; }
 
+/* Debug: Force show sidebar for testing */
+/* .side-navbar { transform: translateX(0) !important; } */
 
 
 
@@ -451,4 +456,5 @@ footer { text-align: center; padding: 25px; background: #222; color: white; marg
   .hero-title { font-size: 28px; }
   .hero-subtitle { font-size: 14px; }
   .about-ribbon { font-size: 12px; padding: 6px 15px; }
+
 }
