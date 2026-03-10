@@ -58,38 +58,81 @@ document.getElementById('miniToggle')?.addEventListener('click', () => {
   enBtn.addEventListener('click', () => { currentLang = 'en'; updateLanguage(); });
 
 
-  // ✅ MOBILE SIDEBAR TOGGLE
-  const hamburger = document.getElementById('hamburger');
-  const sideNavbar = document.getElementById('sideNavbar');
+  // ✅ MOBILE SIDEBAR TOGGLE - FIXED
+const hamburger = document.getElementById('hamburger');
+const sideNavbar = document.getElementById('sideNavbar');
 
-  if (hamburger && sideNavbar) {
-    hamburger.addEventListener('click', (e) => {
-      e.stopPropagation();
-      hamburger.classList.toggle('active');
-      sideNavbar.classList.toggle('active');
-    });
+function isMobile() {
+  return window.innerWidth <= 992;
+}
 
-    // Close when clicking a link (mobile)
-    document.querySelectorAll('.nav-links a').forEach(link => {
-      link.addEventListener('click', () => {
-        if (window.innerWidth <= 992) {
-          hamburger.classList.remove('active');
-          sideNavbar.classList.remove('active');
-        }
-      });
-    });
-
-    // Close when clicking outside sidebar
-    document.addEventListener('click', (e) => {
-      if (window.innerWidth <= 992 && 
-          !sideNavbar.contains(e.target) && 
-          !hamburger.contains(e.target) && 
-          sideNavbar.classList.contains('active')) {
-        hamburger.classList.remove('active');
-        sideNavbar.classList.remove('active');
-      }
-    });
+function closeMobileMenu() {
+  if (isMobile() && sideNavbar && hamburger) {
+    hamburger.classList.remove('active');
+    sideNavbar.classList.remove('active');
+    document.body.style.overflow = ''; // Restore scrolling
   }
+}
+
+if (hamburger && sideNavbar) {
+  
+  // Toggle sidebar
+  hamburger.addEventListener('click', (e) => {
+    e.stopPropagation(); // Prevent document click from closing immediately
+    hamburger.classList.toggle('active');
+    sideNavbar.classList.toggle('active');
+    
+    // Prevent body scroll when menu is open
+    if (sideNavbar.classList.contains('active')) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+  });
+
+  // Close when clicking a nav link
+  document.querySelectorAll('.nav-links a').forEach(link => {
+    link.addEventListener('click', () => {
+      closeMobileMenu();
+    });
+  });
+
+  // Close when clicking the overlay (sidebar::after)
+  sideNavbar.addEventListener('click', (e) => {
+    if (e.target === sideNavbar && sideNavbar.classList.contains('active')) {
+      // Clicked on the overlay area
+      closeMobileMenu();
+    }
+  });
+
+  // Close when clicking outside (on main content)
+  document.addEventListener('click', (e) => {
+    if (isMobile() && 
+        sideNavbar.classList.contains('active') &&
+        !sideNavbar.contains(e.target) && 
+        !hamburger.contains(e.target)) {
+      closeMobileMenu();
+    }
+  });
+
+  // Close on Escape key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && isMobile() && sideNavbar.classList.contains('active')) {
+      closeMobileMenu();
+    }
+  });
+}
+
+// ✅ Handle window resize - close menu if switching to desktop
+window.addEventListener('resize', () => {
+  if (!isMobile() && sideNavbar) {
+    sideNavbar.classList.remove('active');
+    hamburger?.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+});
+
+
 
 
   // ✅ LIGHTBOX (unchanged logic)

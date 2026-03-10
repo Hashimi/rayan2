@@ -153,79 +153,127 @@ html[dir="rtl"] .hamburger { left: -45px; }
 html[dir="ltr"] .main-content { margin-left: 200px; }  /* ✅ Match new width */
 html[dir="rtl"] .main-content { margin-right: 200px; }
 
-/* ================= MOBILE RESPONSIVE ================= */
+
+
+/* ================= MOBILE RESPONSIVE - FIXED ================= */
 @media (max-width: 992px) {
+  
+  /* ✅ Sidebar: Hidden off-canvas by default on mobile */
   .side-navbar {
-    width: 200px; /* Keep compact width on mobile too */
-    transform: translateX(0);
+    width: 200px;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    padding: 15px 12px;
+    z-index: 1000;
+    /* Reset desktop transforms */
+    transform: none !important;
   }
   
+  /* ✅ LTR: Slide from LEFT edge */
   html[dir="ltr"] .side-navbar {
     left: 0;
-    transform: translateX(-100%);
+    right: auto;
+    transform: translateX(-100%) !important; /* Hidden */
+    border-right: 1px solid #333;
+    border-left: none;
   }
   
+  /* ✅ RTL: Slide from RIGHT edge */
   html[dir="rtl"] .side-navbar {
     right: 0;
-    transform: translateX(100%);
+    left: auto;
+    transform: translateX(100%) !important; /* Hidden */
+    border-left: 1px solid #333;
+    border-right: none;
   }
   
+  /* ✅ Show sidebar when active (mobile toggle) */
   .side-navbar.active {
     transform: translateX(0) !important;
-    box-shadow: 0 0 25px rgba(255, 217, 102, 0.4);
+    box-shadow: 0 0 30px rgba(255, 217, 102, 0.5);
   }
   
-  .hamburger { display: flex; }
-  html[dir="ltr"] .hamburger { right: 15px; }
-  html[dir="rtl"] .hamburger { left: 15px; }
+  /* ✅ Hamburger: ALWAYS visible on mobile, properly positioned */
+  .hamburger {
+    display: flex !important; /* Force show on mobile */
+    position: fixed; /* ✅ Changed from absolute to fixed */
+    top: 15px;
+    z-index: 1001; /* Above sidebar */
+    background: #222; /* ✅ Add background for visibility */
+    border-radius: 8px;
+    padding: 8px 12px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.3);
+    border: 1px solid #333;
+  }
   
-  html[dir="ltr"] .main-content,
-  html[dir="rtl"] .main-content {
-    margin-left: 0;
-    margin-right: 0;
+  /* ✅ LTR: Hamburger on TOP-RIGHT corner */
+  html[dir="ltr"] .hamburger {
+    right: 15px;
+    left: auto;
+  }
+  
+  /* ✅ RTL: Hamburger on TOP-LEFT corner */
+  html[dir="rtl"] .hamburger {
+    left: 15px;
+    right: auto;
+  }
+  
+  .hamburger span {
+    width: 24px;
+    height: 3px;
+    background: #ffd966;
+    border-radius: 2px;
+    transition: 0.3s;
+  }
+  
+  /* ✅ Hamburger animation when active */
+  .hamburger.active span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+  }
+  .hamburger.active span:nth-child(2) {
+    opacity: 0;
+  }
+  .hamburger.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(5px, -5px);
+  }
+  
+  /* ✅ Remove content margin on mobile */
+  .main-content {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+  
+  /* ✅ Overlay when sidebar is open (optional but recommended) */
+  .side-navbar.active::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0,0,0,0.5);
+    z-index: -1;
   }
 }
 
+/* Small phones - extra compact */
 @media (max-width: 500px) {
-  .side-navbar { width: 180px; } /* ✅ Even more compact on small phones */
+  .side-navbar { width: 180px !important; }
   .logo img { height: 40px; }
   .logo-text { font-size: 15px; }
   .nav-links a { font-size: 13px; padding: 9px 12px; }
-  .language-switcher .lang-btn { padding: 5px 12px; font-size: 11px; }
+  
+  .hamburger {
+    top: 12px;
+    padding: 7px 10px;
+  }
+  html[dir="ltr"] .hamburger { right: 12px; }
+  html[dir="rtl"] .hamburger { left: 12px; }
 }
 
 
 
-/* Optional: Ultra-compact mode */
-.side-navbar.mini {
-  width: 70px !important;
-  padding: 15px 8px;
-}
-
-.side-navbar.mini .logo-text,
-.side-navbar.mini .lang-btn span,
-.side-navbar.mini .nav-links a span {
-  display: none;
-}
-
-.side-navbar.mini .logo {
-  gap: 5px;
-  padding-bottom: 10px;
-}
-
-.side-navbar.mini .logo img {
-  height: 35px;
-}
-
-.side-navbar.mini .nav-links a {
-  padding: 12px;
-  justify-content: center;
-}
-
-.side-navbar.mini .language-switcher {
-  flex-direction: column;
-  gap: 8px;
-}
 
 
 /* HERO SECTION (adjusted for side nav) */
