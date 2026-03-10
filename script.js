@@ -1,33 +1,11 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-  // ✅ SMOOTH SCROLL
-  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function(e) {
-      e.preventDefault();
-      const target = document.querySelector(this.getAttribute('href'));
-      if (target) {
-        target.scrollIntoView({ behavior: 'smooth' });
-        // Close mobile menu after click
-        if (window.innerWidth <= 992) {
-          hamburger.classList.remove('active');
-          sideNavbar.classList.remove('active');
-        }
-      }
-    });
-  });
-
-// Add toggle button in HTML: <button id="miniToggle">⊞</button>
-document.getElementById('miniToggle')?.addEventListener('click', () => {
-  document.getElementById('sideNavbar').classList.toggle('mini');
-});
-
-
-  // ✅ LANGUAGE SWITCHER + DIRECTION
+  // ================= LANGUAGE SWITCHER =================
   const faBtn = document.getElementById('fa-btn');
   const enBtn = document.getElementById('en-btn');
   const langElements = document.querySelectorAll('.lang');
   const langBtns = document.querySelectorAll('.lang-btn');
-  let currentLang = 'fa';
+  let currentLang = localStorage.getItem('rayan-lang') || 'fa';
 
   function updateLanguage() {
     langElements.forEach(el => {
@@ -35,107 +13,102 @@ document.getElementById('miniToggle')?.addEventListener('click', () => {
       if (newText) el.textContent = newText;
     });
     
-    // ✅ Switch direction & navbar side
     document.documentElement.dir = currentLang === 'fa' ? 'rtl' : 'ltr';
     document.documentElement.lang = currentLang;
     
-    // Update active button state
     langBtns.forEach(btn => btn.classList.remove('active'));
     document.getElementById(`${currentLang}-btn`).classList.add('active');
     
-    // Save preference
     localStorage.setItem('rayan-lang', currentLang);
   }
 
-  // Load saved language
-  const savedLang = localStorage.getItem('rayan-lang');
-  if (savedLang) {
-    currentLang = savedLang;
-  }
   updateLanguage();
-
   faBtn.addEventListener('click', () => { currentLang = 'fa'; updateLanguage(); });
   enBtn.addEventListener('click', () => { currentLang = 'en'; updateLanguage(); });
 
 
-  // ✅ MOBILE SIDEBAR TOGGLE - FIXED
-const hamburger = document.getElementById('hamburger');
-const sideNavbar = document.getElementById('sideNavbar');
+  // ================= MOBILE SIDEBAR TOGGLE =================
+  const hamburger = document.getElementById('hamburger');
+  const sideNavbar = document.getElementById('sideNavbar');
+  const overlay = document.getElementById('sidebarOverlay');
 
-function isMobile() {
-  return window.innerWidth <= 992;
-}
+  function isMobile() {
+    return window.innerWidth <= 992;
+  }
 
-function closeMobileMenu() {
-  if (isMobile() && sideNavbar && hamburger) {
+  function openMenu() {
+    hamburger.classList.add('active');
+    sideNavbar.classList.add('active');
+    overlay.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeMenu() {
     hamburger.classList.remove('active');
     sideNavbar.classList.remove('active');
-    document.body.style.overflow = ''; // Restore scrolling
+    overlay.classList.remove('active');
+    document.body.style.overflow = '';
   }
-}
 
-if (hamburger && sideNavbar) {
-  
-  // Toggle sidebar
-  hamburger.addEventListener('click', (e) => {
-    e.stopPropagation(); // Prevent document click from closing immediately
-    hamburger.classList.toggle('active');
-    sideNavbar.classList.toggle('active');
-    
-    // Prevent body scroll when menu is open
+  function toggleMenu() {
     if (sideNavbar.classList.contains('active')) {
-      document.body.style.overflow = 'hidden';
+      closeMenu();
     } else {
-      document.body.style.overflow = '';
+      openMenu();
+    }
+  }
+
+  if (hamburger && sideNavbar && overlay) {
+    
+    // Toggle on hamburger click
+    hamburger.addEventListener('click', (e) => {
+      e.stopPropagation();
+      toggleMenu();
+    });
+
+    // Close on overlay click
+    overlay.addEventListener('click', () => {
+      closeMenu();
+    });
+
+    // Close on nav link click
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      link.addEventListener('click', () => {
+        if (isMobile()) {
+          closeMenu();
+        }
+      });
+    });
+
+    // Close on Escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && isMobile() && sideNavbar.classList.contains('active')) {
+        closeMenu();
+      }
+    });
+  }
+
+  // Close menu on resize to desktop
+  window.addEventListener('resize', () => {
+    if (!isMobile() && sideNavbar) {
+      closeMenu();
     }
   });
 
-  // Close when clicking a nav link
-  document.querySelectorAll('.nav-links a').forEach(link => {
-    link.addEventListener('click', () => {
-      closeMobileMenu();
+
+  // ================= SMOOTH SCROLL =================
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+      e.preventDefault();
+      const target = document.querySelector(this.getAttribute('href'));
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth' });
+      }
     });
   });
 
-  // Close when clicking the overlay (sidebar::after)
-  sideNavbar.addEventListener('click', (e) => {
-    if (e.target === sideNavbar && sideNavbar.classList.contains('active')) {
-      // Clicked on the overlay area
-      closeMobileMenu();
-    }
-  });
 
-  // Close when clicking outside (on main content)
-  document.addEventListener('click', (e) => {
-    if (isMobile() && 
-        sideNavbar.classList.contains('active') &&
-        !sideNavbar.contains(e.target) && 
-        !hamburger.contains(e.target)) {
-      closeMobileMenu();
-    }
-  });
-
-  // Close on Escape key
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && isMobile() && sideNavbar.classList.contains('active')) {
-      closeMobileMenu();
-    }
-  });
-}
-
-// ✅ Handle window resize - close menu if switching to desktop
-window.addEventListener('resize', () => {
-  if (!isMobile() && sideNavbar) {
-    sideNavbar.classList.remove('active');
-    hamburger?.classList.remove('active');
-    document.body.style.overflow = '';
-  }
-});
-
-
-
-
-  // ✅ LIGHTBOX (unchanged logic)
+  // ================= LIGHTBOX =================
   const lightbox = document.getElementById('lightbox');
   const lightboxImg = document.querySelector('.lightbox-img');
   const closeBtn = document.querySelector('.lightbox .close');
@@ -160,6 +133,11 @@ window.addEventListener('resize', () => {
     document.body.style.overflow = 'hidden';
   }
 
+  function closeLightbox() {
+    lightbox.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
   prevBtn.addEventListener('click', () => {
     currentIndex = (currentIndex - 1 + galleryItems.length) % galleryItems.length;
     openLightbox(galleryItems[currentIndex].href, galleryItems[currentIndex].querySelector('img')?.alt || '');
@@ -170,43 +148,19 @@ window.addEventListener('resize', () => {
     openLightbox(galleryItems[currentIndex].href, galleryItems[currentIndex].querySelector('img')?.alt || '');
   });
 
-  closeBtn.addEventListener('click', () => {
-    lightbox.classList.remove('active');
-    document.body.style.overflow = '';
-  });
-
+  closeBtn.addEventListener('click', closeLightbox);
+  
   lightbox.addEventListener('click', e => {
-    if (e.target === lightbox || e.target === closeBtn) {
-      lightbox.classList.remove('active');
-      document.body.style.overflow = '';
+    if (e.target === lightbox) {
+      closeLightbox();
     }
   });
 
-  // Keyboard navigation for lightbox
   document.addEventListener('keydown', e => {
     if (!lightbox.classList.contains('active')) return;
-    if (e.key === 'Escape') {
-      lightbox.classList.remove('active');
-      document.body.style.overflow = '';
-    } else if (e.key === 'ArrowLeft') {
-      prevBtn.click();
-    } else if (e.key === 'ArrowRight') {
-      nextBtn.click();
-    }
-  });
-
-
-  // ✅ NAVBAR SCROLL EFFECT (subtle shadow enhancement)
-  window.addEventListener('scroll', () => {
-    if (window.scrollY > 50) {
-      sideNavbar.style.boxShadow = window.innerWidth > 992 
-        ? (document.dir === 'ltr' ? '4px 0 20px rgba(0,0,0,0.6)' : '-4px 0 20px rgba(0,0,0,0.6)')
-        : '0 0 25px rgba(255,217,102,0.3)';
-    } else {
-      sideNavbar.style.boxShadow = window.innerWidth > 992
-        ? (document.dir === 'ltr' ? '3px 0 15px rgba(0,0,0,0.5)' : '-3px 0 15px rgba(0,0,0,0.5)')
-        : 'none';
-    }
+    if (e.key === 'Escape') closeLightbox();
+    else if (e.key === 'ArrowLeft') prevBtn.click();
+    else if (e.key === 'ArrowRight') nextBtn.click();
   });
 
 });

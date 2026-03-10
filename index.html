@@ -10,10 +10,9 @@
 <body>
 
 <!-- ✅ SIDE NAVIGATION -->
-
 <aside class="side-navbar" id="sideNavbar">
   
-  <!-- Logo at Top -->
+  <!-- Logo at Top - Vertical Stack -->
   <div class="logo">
     <img src="logo.png" alt="Logo">
     <span class="logo-text lang" data-fa="رایان تاور" data-en="Rayan Tower">رایان تاور</span>
@@ -35,16 +34,19 @@
     <button id="en-btn" class="lang-btn">EN</button>
   </div>
 
-  <!-- ✅ Hamburger for Mobile (inside sidebar) -->
-  <button class="hamburger" id="hamburger" aria-label="Toggle navigation">
-    <span></span>
-    <span></span>
-    <span></span>
-  </button>
-
 </aside>
 
-<!-- ✅ Main Content Wrapper (shifts based on navbar) -->
+<!-- ✅ HAMBURGER BUTTON - OUTSIDE sidebar for better z-index control -->
+<button class="hamburger" id="hamburger" aria-label="Toggle navigation">
+  <span></span>
+  <span></span>
+  <span></span>
+</button>
+
+<!-- ✅ OVERLAY for mobile -->
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+<!-- ✅ Main Content Wrapper -->
 <main class="main-content">
 
 <header>
@@ -69,7 +71,7 @@
     <div class="about-content">
       <div class="about-text">
         <h2 class="lang" data-fa="درباره رایان تاور" data-en="About Rayan Tower">درباره رایان تاور</h2>
-        <p class="lang" data-fa="رایان تاور نماد یک زندگی مدرن، مصؤن و باوقار در شهر مزار شریف است؛ پروژه‌ای که با نگاه آینده‌نگر، کیفیت مهندسی‌شده و طراحی شهری معاصر ساخته می‌شود. این برج ترکیبی هماهنگ از فضاهای تجارتی ممتاز و واحدهای رهایشی لوکس است؛ جایی که آسایش، امنیت و ارزش سرمایه‌گذاری در کنار هم قرار گرفته‌اند." data-en="Ryan Tower is a symbol of modern, safe and dignified living in the city of Mazar-e Sharif; a project built with a forward-looking vision, engineered quality and contemporary urban design. This tower is a harmonious combination of premium commercial spaces and luxury residential units; where comfort, security and investment value come together.">رایان تاور .</p>
+        <p class="lang" data-fa="رایان تاور نماد یک زندگی مدرن، مصؤن و باوقار در شهر مزار شریف است." data-en="Ryan Tower is a symbol of modern, safe and dignified living in the city of Mazar-e Sharif.">رایان تاور .</p>
         <div class="features">
           <div class="feature lang" data-fa="آپارتمان‌های لوکس" data-en="Luxury Apartments">آپارتمان‌های لوکس</div>
           <div class="feature lang" data-fa="معماری مدرن" data-en="Modern Architecture">معماری مدرن</div>
@@ -127,9 +129,9 @@
   <p>Powered By HashimiHideout</p>
 </footer>
 
-</main> <!-- ✅ End Main Content -->
+</main>
 
-<!-- Lightbox (unchanged) -->
+<!-- Lightbox -->
 <div id="lightbox" class="lightbox">
   <span class="close">&times;</span>
   <span class="prev">&#10094;</span>
